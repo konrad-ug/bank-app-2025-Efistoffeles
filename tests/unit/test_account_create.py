@@ -91,3 +91,36 @@ class TestCompanyAccountTransfer:
         account = CompanyAccount("New Venture", 0.0, "3333333333")
         account.incoming_transfer(1000.0)
         assert account.balance == 1000.0
+
+class TestPersonalAccountExpressTransfer:
+    def test_express_transfer_success(self):
+        account = PersonalAccount("John", "Doe", 100.0, "12345678901")
+        account.express_outgoing_transfer(50.0)
+        assert account.balance == 49.0 
+
+    def test_express_transfer_insufficient_funds(self):
+        account = PersonalAccount("Alice", "Smith", 50.0, "12345678903")
+        account.express_outgoing_transfer(60.0)
+        assert account.balance == 50.0 
+
+    def test_express_transfer_leaves_negative_balance(self):
+        account = PersonalAccount("Charlie", "White", 50.0, "12345678905")
+        account.express_outgoing_transfer(50.0)
+        assert account.balance == -1.0
+
+
+class TestCompanyAccountExpressTransfer:
+    def test_express_transfer_success(self):
+        account = CompanyAccount("Tech Corp", 1000.0, "1234567890")
+        account.express_outgoing_transfer(300.0)
+        assert account.balance == 695.0
+
+    def test_express_transfer_insufficient_funds(self):
+        account = CompanyAccount("Startup Ltd", 100.0, "1234567892")
+        account.express_outgoing_transfer(200.0)
+        assert account.balance == 100.0
+
+    def test_express_transfer_leaves_negative_balance(self):
+        account = CompanyAccount("Final Corp", 100.0, "1234567894")
+        account.express_outgoing_transfer(100.0)
+        assert account.balance == -5.0

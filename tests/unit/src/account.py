@@ -20,6 +20,11 @@ class PersonalAccount(Account):
         else:
             self.pesel = pesel
 
+    def express_outgoing_transfer(self, amount):
+        fee = 1
+        if self.balance >= amount:
+            self.balance -= (amount + fee)
+
 
 class CompanyAccount(Account):
     def __init__(self, company_name, balance, nip):
@@ -29,3 +34,8 @@ class CompanyAccount(Account):
             self.nip = "Invalid"
         else:
             self.nip = nip
+
+    def express_outgoing_transfer(self, amount):
+        fee = 5
+        if self.balance >= amount:
+            self.balance -= (amount + fee)
